@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OnlineShop.ViewModels.ProductViewModel>
+@{
+    ViewBag.Title = "Store";
+}
+
+<script type="text/javascript">
+    function AddToCart(item) {
+        var itemId = $(item).attr("itemid");
+        var formData = new FormData();
+        formData.append("ItemId", itemId);
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Store/Index',
+            success: function(data) {
+                if (data.Success) {
+                    $("#cartItem").text(" " + data.Counter + " ");
+                }
+            },
+            error: function() {
+                alert("There is some problem.");
+            }
+        });
+    }
+</script>
+<div class="container">
+    <br />
+    <br />
+    <div class="body-content" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap:5px">
+
+        @{
+            foreach (var product in Model)
+            {
+                <div class="card" s style="width: 250px; height:370px; border: none; margin: 8px; background-color:white; padding:0px">
+                    <div class="card-body">
+                        <div class="pictures" style="width: 300px; margin-left: 2px; margin-right:0px; margin-bottom:5px; ">
+                            @if (product.Image != null)
+                             { <img src="@Url.Content("~/Images/" + product.Image)" alt="@product.Image" width="250px" height="200px"/>}
+                             else
+                             { <img src="@Url.Content("~/Images/null.png")" alt="No Product"  width="250px" height="150px" />}
+                        </div>
+                        <div class="ProductName_" style="height: 50px; width: 250px; padding-left:5px; border-top: 2px solid #468189ff; padding-top: 0px">
+                            <h5>@product.ProductName</h5>
+                        </div>
+                        <div class="Price" style="border-top:2px solid #468189ff;height: 50px; width: 250px;padding-left:5px"><h5>@product.ProductPrice.ToString("R#,##0.00")</h5></div>
+                        <div class="ButtonPosition" style="height: 50px; width: 250px; padding-left:5px; border-top: 2px solid #468189ff; padding-top: 10px">
+                            <input type="button" name="AddToCart" value="Add To Cart" class="btn btn-primary" itemid="@product.ProductId" id="btnAddToCart" style="float: left; background-color: #468189ff" onclick="AddToCart(this)" />
+                            <input type="button" name="AddToWishList" value="Add To WishList" class="btn btn-primary" itemid="@product.ProductId" style="float: right; background-color:#468189ff" id="btnAddToCart" onclick="AddToCart(this)" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+

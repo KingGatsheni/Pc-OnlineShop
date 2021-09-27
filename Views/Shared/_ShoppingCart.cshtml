@@ -1,0 +1,19 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    <li>
+        @if (Session["CartCounter"] == null)
+        {
+          <i class="fas fa-shopping-cart fa-xs" style=" color: white">  @Html.ActionLink(" 0 ", "ShoppingCart", "Store", new { id = "cartItem" })</i>
+            <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred"> 0 </i>
+
+        }
+        else
+        {
+
+          <i class="fas fa-shopping-cart fa-xs" style=" color: white">@Html.ActionLink(" " + Session["CartCounter"] + " ", "ShoppingCart", "Store", new { id = "cartItem" }) </i>
+            <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred"> 0 </i>
+        }
+
+    </li>
+</ul>
+
+

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<OnlineShop.ViewModels.CartViewModel>
+@{
+    ViewBag.Title = "ShoppingCart";
+    decimal TotalAmount = 0.00M;
+    List<string> theaders = new List<string> { "ItemName", "Quantity", "UnitPrice", "Total" };
+}
+
+
+
+
+<h2 class="text-center" style="margin-bottom:50px">ShoppingCart</h2>
+
+@using (Html.BeginForm("AddOrder", "Shopping", FormMethod.Post))
+{
+    <table class="table-condensed" style="width: 100%">
+       
+        @{
+            if (Model == null)
+            {
+
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    TotalAmount += item.Total;
+
+                <tr>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td style="text-align: right">
+                        @item.Quantity.ToString("#,##0")
+                    </td>
+                    <td style="text-align: right">
+                        @item.UnitPrice.ToString("R#,##0.00")
+                    </td>
+                    <td style="text-align: right">
+                        @item.Total.ToString("R#,##0.00")
+                    </td>
+                </tr>
+                    }
+                }
+            }
+        <tr style="border-top: 2px solid maroon">
+            <td colspan="3" style="text-align: right">
+                <h3>Total Amount</h3>
+            </td>
+            <td style="text-align: right">
+                <h3>@TotalAmount.ToString("R#,##0.00")</h3>
+            </td>
+        </tr>
+        @if (Model != null)
+        {
+        <tr style="text-align: right">
+            <td colspan="5">
+                <input type="submit" value="Checkout" name="Checkout" class="btn btn-primary" id="SaveOrder" />
+            </td>
+        </tr>
+        }
+
+        <tr style="text-align: center">
+            <td colspan="5">
+                @Html.ActionLink("Back to Shopping", "Index", "Store")
+            </td>
+        </tr>
+    </table>
+
+}
+
+
+
+

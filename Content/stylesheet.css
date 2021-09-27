@@ -1,0 +1,148 @@
+﻿body {
+    background-color: whitesmoke;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom:0px;
+    padding-bottom: 0px;
+    overflow-x: hidden;
+}
+
+.SearchBar {
+    background-color: rgb(216, 240, 238);
+    font-size: small;
+    border: none;
+    width: 900px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+a {
+    color: #1a1b41ff;
+    text-decoration: none;
+}
+
+.pictures {
+    height: 200px;
+    margin-top: 0px;
+    background-repeat: round;
+    background-image: url("~/Images/pic1.jpg") !important;
+}
+
+.lowerTab {
+    background-color: rgb(158, 211, 206);
+    height: 64px;
+    font-size: 50px;
+    font-weight: 700;
+    padding-bottom: 14px;
+    background-attachment: fixed;
+   
+}
+
+.UpdatesToUsers {
+    background-color: #bc9ec1ff;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 6px;
+}
+
+.col-md-8 {
+    background-color: black !important;
+    
+}
+.btn btn-primary{
+    background-color:aquamarine !important;
+}
+
+.saleAnimations {
+    animation-name: SaleAnimate;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-duration: 7s;
+    transition-duration: 0.5s;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 6px;
+    height: 600px;
+    padding-top: 200px;
+    font-size: 100px;
+    font-weight: 900;
+    background-repeat: round;
+    background-color: #468189ff;
+}
+
+.Banner {
+    animation-name: BannerText;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: 0s;
+    background-image: url("~/Images/sale.jpg");
+    background-repeat: round;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 100px;
+    font-weight: 900;
+}
+
+a:hover{
+    text-decoration:none;
+}
+
+
+
+
+@keyframes SaleAnimate {
+    0% {
+        color: red;
+    }
+
+    25% {
+        color: blue;
+    }
+
+    50% {
+        color: white;
+        background-image: url("~/Images/pic3");
+    }
+
+    75% {
+        color: yellow;
+    }
+
+    100% {
+        color: red
+    }
+}
+
+@keyframes BannerText {
+    0% {
+        color: red;
+    }
+
+    25% {
+        color: blue;
+    }
+
+    50% {
+        color: white;
+    }
+
+    75% {
+        color: yellow;
+    }
+
+    100% {
+        color: red
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #468189ff;
+    display: none;
+}
