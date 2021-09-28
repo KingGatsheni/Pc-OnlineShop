@@ -4,45 +4,55 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Profile Info.</h2>
+<h2 style="text-align: center; font-weight: 900">Profile Information</h2>
 
 @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+<div style="margin-left: 400px">
     @Html.AntiForgeryToken()
-    <h4>Customer Info.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom: 50px">
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom: 50px">
         @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
         </div>
     </div>
+<<<<<<< HEAD
+    <div class="form-group" style="margin-bottom: 50px">
+=======
      <div class="form-group">
+>>>>>>> 9f106e2423a5081a8fbf5858a074bb06b308295c
         @Html.LabelFor(m => m.CellNo, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.CellNo, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom: 50px">
         @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
         </div>
     </div>
-   
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
+<<<<<<< HEAD
             <input type="submit" class="btn btn-default" value="Index"/>
+=======
+            <input type="submit" class="btn btn-default" value="Save" style="background-color: #468189ff; width:120px" />
+>>>>>>> 2a130fa81a581ed42ff5ac36428d21f7957b47d2
         </div>
     </div>
+</div>
+   
 }
 
 @section Scripts {
