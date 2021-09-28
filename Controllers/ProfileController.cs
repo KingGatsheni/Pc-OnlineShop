@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 
 namespace OnlineShop.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile

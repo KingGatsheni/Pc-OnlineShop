@@ -18,7 +18,7 @@ namespace OnlineShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext context;
+        private ApplicationDbContext context = new ApplicationDbContext();
 
 
         public AccountController()
@@ -29,7 +29,7 @@ namespace OnlineShop.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            this.context = new ApplicationDbContext();
+            
         }
 
         public ApplicationSignInManager SignInManager
@@ -190,7 +190,7 @@ namespace OnlineShop.Controllers
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     userManager.AddToRole(user.Id, "Customer");
                     
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Profile");
                 }
                 AddErrors(result);
             }
