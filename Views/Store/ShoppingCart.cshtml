@@ -10,7 +10,7 @@
 
 <h2 class="" style="margin-bottom:50px; margin-left: 530px; font-weight: 900">Shopping Cart</h2>
 
-@using (Html.BeginForm("SaveOrder", "Shopping", FormMethod.Post))
+@using (Html.BeginForm("CheckOut", "Store", FormMethod.Post))
 {
     <div style="margin-left: 250px; margin-right:250px">
         <table class="table-condensed" style="width: 100%">
@@ -31,31 +31,38 @@
                                 @item.ItemName
                             </td>
                             <td style="text-align: right">
-                                @item.Quantity.ToString("#,##0")
-                            </td>
+                                <a href="@Url.Action("Minus","Store",new { id = (string)item.ItemId})">
+                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    </a>
+                                    @item.Quantity.ToString("#,##0")
+                                    <a href="@Url.Action("Plus","Store",new { id = (string)item.ItemId})">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </a>
+</td>
                             <td style="text-align: right">
                                 @item.UnitPrice.ToString("R#,##0.00")
                             </td>
                             <td style="text-align: right">
-                                <i class="far fa-trash-alt fa-3x" style="color: #468189ff; font-size:25px "></i>
+                                <a href="@Url.Action("Remove","Store",new { id = (string)item.ItemId})"><i class="far fa-trash-alt fa-3x" style="color: #468189ff; font-size:25px "></i></a>
                             </td>
                         </tr>
                     }
                 }
             }
-            <tr style="border-top: 2px solid #468189ff">
-                <td colspan="3" style="text-align: right">
-                    <h3>Total Amount</h3>
-                </td>
-                <td style="text-align: right">
-                    <h3>@TotalAmount.ToString("R#,##0.00")</h3>
-                </td>
-            </tr>
-            @if (Model != null)
+
+            @if (Session["CartItem"] != null)
             {
+                <tr style="border-top: 2px solid #468189ff">
+                    <td colspan="3" style="text-align: right">
+                        <h3>Total Amount</h3>
+                    </td>
+                    <td style="text-align: right">
+                        <h3>@TotalAmount.ToString("R#,##0.00")</h3>
+                    </td>
+                </tr>
                 <tr style="text-align: right">
                     <td colspan="5">
-                        <input type="submit" value="Checkout" name="Checkout" class="btn btn-primary" id="SaveOrder" style="background-color:#468189ff; width: 120px " />
+                        <input type="submit" value="CheckOut" name="CheckOut" class="btn btn-primary" id="SaveOrder" style="background-color:#468189ff; width: 120px " />
                     </td>
                 </tr>
             }

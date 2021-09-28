@@ -66,10 +66,12 @@
     }
     else if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
     {
-        <div class="lowerTab">
-            @Html.ActionLink("PCWIZARD.COM", "Index", "Home")
-            <input type="text" name="" class="SearchBar" placeholder="search">
-        </div>
+<div class="lowerTab">
+    @Html.ActionLink("PCWIZARD.COM", "Index", "Home")
+    <input type="text" name="" class="SearchBar" placeholder="search">
+    <i class="fas fa-search fa-xs" style="font-size:small; margin-left:0px"></i>
+    @Html.Partial("_ShoppingCart")
+</div>
     }
 
     <div class="ActualContent">

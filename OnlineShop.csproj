@@ -374,6 +374,7 @@
     <Content Include="Views\Store\EmptyCart.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Repair\Index.cshtml" />
+    <Content Include="Views\Store\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

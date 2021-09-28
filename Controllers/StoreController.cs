@@ -47,6 +47,7 @@ namespace OnlineShop.Controllers
                 objShoppingCartModel = listOfShoppingCartModels.Single(model => model.ItemId == ItemId);
                 objShoppingCartModel.Quantity = objShoppingCartModel.Quantity + 1;
                 objShoppingCartModel.Total = objShoppingCartModel.Quantity * objShoppingCartModel.UnitPrice;
+               
             }
             else
             {
@@ -55,6 +56,7 @@ namespace OnlineShop.Controllers
                 objShoppingCartModel.Quantity = 1;
                 objShoppingCartModel.Total = objPro.SellingPrice;
                 objShoppingCartModel.UnitPrice = objPro.SellingPrice;
+                objShoppingCartModel.Image = objPro.ImageName;
                 listOfShoppingCartModels.Add(objShoppingCartModel);
             }
 
@@ -71,6 +73,59 @@ namespace OnlineShop.Controllers
         }
 
         public ActionResult EmptyCart()
+        {
+            return View();
+        }
+
+        public ActionResult Remove(int id)
+        {
+            List<CartViewModel> cart = (List<CartViewModel>)Session["CartItem"];
+            foreach(var item in cart)
+            {
+                if(item.ItemId == id.ToString())
+                {
+                    cart.Remove(item);
+                    break;
+                }
+            }
+            Session["CartItem"] = cart;
+            Session["CartCounter"] = cart.Count;
+
+            return RedirectToAction("ShoppingCart","Store");
+        }
+
+        public ActionResult Plus(int id)
+        {
+            List<CartViewModel> cart = (List<CartViewModel>)Session["CartItem"];
+            foreach (var item in cart)
+            {
+                if (item.ItemId == id.ToString())
+                {
+                    item.Quantity = item.Quantity + 1;
+                    item.Total = item.Quantity * item.UnitPrice;
+                }
+            }
+            Session["CartItem"] = cart;
+            return RedirectToAction("ShoppingCart", "Store");
+        }
+
+        public ActionResult Minus(int id)
+        {
+            List<CartViewModel> cart = (List<CartViewModel>)Session["CartItem"];
+            foreach (var item in cart)
+            {
+                if (item.ItemId == id.ToString() && item.Quantity !=1) 
+                {
+                    item.Quantity = item.Quantity - 1;
+                    item.Total = item.Quantity * item.UnitPrice;
+                }
+            }
+            Session["CartItem"] = cart;
+            return RedirectToAction("ShoppingCart", "Store");
+        }
+
+        [Authorize]
+        public ActionResult Checkout()
         {
             return View();
         }

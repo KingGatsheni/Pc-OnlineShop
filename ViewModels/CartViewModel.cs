@@ -12,5 +12,6 @@ namespace OnlineShop.ViewModels
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Total { get; set; }
+        public string Image { get; set; }
     }
 }
