@@ -47,7 +47,8 @@ namespace OnlineShop.Controllers
                 objShoppingCartModel = listOfShoppingCartModels.Single(model => model.ItemId == ItemId);
                 objShoppingCartModel.Quantity = objShoppingCartModel.Quantity + 1;
                 objShoppingCartModel.Total = objShoppingCartModel.Quantity * objShoppingCartModel.UnitPrice;
-               
+                objShoppingCartModel.SubTotal = objShoppingCartModel.Quantity * objShoppingCartModel.UnitPrice;
+
             }
             else
             {
@@ -56,6 +57,7 @@ namespace OnlineShop.Controllers
                 objShoppingCartModel.Quantity = 1;
                 objShoppingCartModel.Total = objPro.SellingPrice;
                 objShoppingCartModel.UnitPrice = objPro.SellingPrice;
+                objShoppingCartModel.SubTotal = objPro.SellingPrice;
                 objShoppingCartModel.Image = objPro.ImageName;
                 listOfShoppingCartModels.Add(objShoppingCartModel);
             }
@@ -102,7 +104,9 @@ namespace OnlineShop.Controllers
                 if (item.ItemId == id.ToString())
                 {
                     item.Quantity = item.Quantity + 1;
+                    item.SubTotal = item.Quantity * item.UnitPrice;
                     item.Total = item.Quantity * item.UnitPrice;
+                   
                 }
             }
             Session["CartItem"] = cart;
@@ -117,7 +121,9 @@ namespace OnlineShop.Controllers
                 if (item.ItemId == id.ToString() && item.Quantity !=1) 
                 {
                     item.Quantity = item.Quantity - 1;
+                    item.SubTotal = item.Quantity * item.UnitPrice;
                     item.Total = item.Quantity * item.UnitPrice;
+                   
                 }
             }
             Session["CartItem"] = cart;
@@ -128,6 +134,18 @@ namespace OnlineShop.Controllers
         public ActionResult Checkout()
         {
             return View();
+        }
+
+     
+        public ActionResult Search(string searching)
+        {
+            var productObj = from s in context.Inventories select new ProductViewModel() { ProductId = s.InventoryId, ProductName = s.ProductName, CategoryName = s.Category, ProductPrice = s.SellingPrice, Image = s.ImageName };
+            if (!String.IsNullOrEmpty(searching))
+            {
+                productObj = productObj.Where(s => s.ProductName.Contains(searching));
+            }
+
+            return View(productObj.ToList());
         }
 
     }

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "ShoppingCart";
     decimal TotalAmount = 0.00M;
-    List<string> theaders = new List<string> { "ItemName", "Quantity", "UnitPrice", "Total" };
+    List<string> theaders = new List<string> { "ItemName", "Quantity", "SubPrice" };
 }
 
 
@@ -33,14 +33,14 @@
                             <td style="text-align: right">
                                 <a href="@Url.Action("Minus","Store",new { id = (string)item.ItemId})">
                                     <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                    </a>
-                                    @item.Quantity.ToString("#,##0")
-                                    <a href="@Url.Action("Plus","Store",new { id = (string)item.ItemId})">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                    </a>
-</td>
+                                </a>
+                                @item.Quantity.ToString("#,##0")
+                                <a href="@Url.Action("Plus","Store",new { id = (string)item.ItemId})">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                </a>
+                            </td>
                             <td style="text-align: right">
-                                @item.UnitPrice.ToString("R#,##0.00")
+                                @item.SubTotal.ToString("R#,##0.00")
                             </td>
                             <td style="text-align: right">
                                 <a href="@Url.Action("Remove","Store",new { id = (string)item.ItemId})"><i class="far fa-trash-alt fa-3x" style="color: #468189ff; font-size:25px "></i></a>
