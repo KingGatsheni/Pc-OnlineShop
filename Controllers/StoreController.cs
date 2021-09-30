@@ -27,10 +27,10 @@ namespace OnlineShop.Controllers
                                                             CategoryName = itemObj.Category,
                                                             ProductPrice = itemObj.SellingPrice,
                                                             Image = itemObj.ImageName
-                                                        }).ToList();
+                                                        });
 
           
-            return View(listOfProducts);
+            return View(listOfProducts.OrderBy(x  => x.ProductPrice).ToList());
         }
 
         [HttpPost]

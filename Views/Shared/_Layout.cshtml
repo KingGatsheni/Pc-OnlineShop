@@ -32,24 +32,23 @@
                     <ul class="nav navbar-nav" style="color: black">
                         <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
                         <li>@Html.ActionLink("Reports", "Report", "Dashboard")</li>
-                        <li>@Html.Partial("_LoginPartial")</li>
                     </ul>
-
+                    @Html.Partial("_LoginPartial")
                 }
                 else if (User.Identity.IsAuthenticated && User.IsInRole("Employee"))
                 {
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Add Product", "Product", "Store")</li>
-                        <li>@Html.Partial("_LoginPartial")</li>
                     </ul>
-
+                    @Html.Partial("_LoginPartial")
                 }
                 else
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Store", "Index", "Store")</li>
-                        <li>@Html.Partial("_LoginPartial")</li>
-                    </ul>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Store", "Index", "Store")</li>
+                <li>@Html.ActionLink("Repair", "Index", "Repair")</li>
+            </ul>
+                    @Html.Partial("_LoginPartial")
                 }
             </div>
 
@@ -79,7 +78,7 @@
         <hr />
 
     </div>
-    <footer class="forFooter" style="background-color: #468189ff; margin-bottom: 0px; height: 50px">
+    <footer class="forFooter" style="background-color: #468189ff; margin-bottom: 0px; height: 50px;padding-left:15px;padding-right:15px">
         
         <div class="Copyright" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; float:left;  ">
             <br /> copyright&copy;pcwizard2021

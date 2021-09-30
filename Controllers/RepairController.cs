@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Controllers
 {
+    [Authorize]
     public class RepairController : Controller
     {
         // GET: Repair

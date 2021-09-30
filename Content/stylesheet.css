@@ -64,15 +64,15 @@ a {
     transition-duration: 0.5s;
     margin-top: 5px;
     text-align: center;
+    margin-top: 5px;
     margin-left: 50px;
     margin-right: 50px;
     border-radius: 6px;
-    height: 600px;
+    height: 500px;
     padding-top: 50px;
-    font-size: 100px;
-    font-weight: 900;
+    font-size: 60px;
     background-repeat: round;
-    background-color: #468189ff;
+    background-color: whitesmoke;
 }
 
 .Banner {
@@ -108,7 +108,6 @@ a:hover{
 
     50% {
         color: white;
-        background-image: url("~/Images/pic3");
     }
 
     75% {
