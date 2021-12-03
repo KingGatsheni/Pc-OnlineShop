@@ -10,6 +10,7 @@ using PagedList.Mvc;
 using PagedList;
 using OnlineShop.Notifications;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace OnlineShop.Controllers
 {
@@ -18,7 +19,7 @@ namespace OnlineShop.Controllers
         private ApplicationDbContext context; // declare database instance
         private List<CartViewModel> listOfShoppingCartModels;
         private List<WishListViewModel> listOfWishListsModel;
-        public static string connectionString = "data source=146.230.177.46\\ist3;initial catalog=group8;persist security info=True;user id=group8;password=m2sam;multipleactiveresultsets=True;application name=EntityFramework";
+        public static string connectionString = ConfigurationManager.ConnectionStrings["Model1"].ConnectionString;
         public StoreController()
         {
             this.context = new ApplicationDbContext();
