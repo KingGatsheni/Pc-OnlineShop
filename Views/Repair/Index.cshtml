@@ -1,62 +1,71 @@
-﻿@model OnlineShop.Models.RepairList
+﻿@model IEnumerable<OnlineShop.ViewModels.RepairViewModel>
 
 @{
+
     ViewBag.Title = "Index";
+    decimal Total = 0.00M;
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <h2 style="font-weight: 900; text-align: center">Book a Repair</h2>
-    <hr />
-    <div class="UpdatesToUsers" style="margin-bottom:25px">
-        please note that if your repair is not in the list of repairs specified in the ItemFault list below, your repair therefore cannot be booked online
+
+
+
+@*<div style="background-color: #63a3ac; height: 60px; padding:10px;">
+    <div style="background-color: #468189ff; width: 290px; height: 40px; margin-left: 450px;margin-bottom: -25px; z-index: 1;padding: 5px; border-radius: 5px;">
+        @using (Html.BeginForm("Index", "Repair", FormMethod.Get))
+        {
+            @Html.TextBox("email", null, new { @style = "height: 30px; font-size:16px;color: white; border:none; background-color: #468189ff" },new {disabled})
+            <input type="submit" style="height:30px; font-size:18px; background-color: #468189ff; color: #A7BDBA; border:none; border-left:2px solid #63a3ac" value="Search"; disabled />
+        }
     </div>
-    <div style="margin-left:350px">
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>*@
 
-            <div class="form-group" style="margin-bottom:50px">
-                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group" style="margin-bottom:50px">
-                @Html.LabelFor(model => model.RepairPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RepairPrice, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RepairPrice, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group" style="margin-bottom:50px">
-                @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group" style="margin-bottom:50px">
-                @Html.LabelFor(model => model.ItemFault, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ItemFault, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ItemFault, "", new { @class = "text-danger" })
-                </div>
-            </div>
+<div style="height:600px; margin-top:50px;">
+    @{
+        if (Model == null)
+        {
+            <div style="font-size: 250px; margin-left:500px; color: #E1EAE9">
+                <i class="far fa-dizzy"></i>
+                <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top:-50px; margin-left: -15px">
+                    No Repairs To Show
+                </h2>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" style="background-color: #468189ff; width: 120px" />
-                </div>
             </div>
+        }
+        else
+        {
+            <div style="margin-top:0px; margin-bottom:10px; float:left">
+                @foreach (var item in Model)
+                {
+                    <div style="padding:10px; width:600px;height:180px; background-color:white; margin-bottom:10px;margin-left: 250px">
+                        <p style="font-size:18px;font-weight:bold;">Name: @item.ItemName.ToUpper()</p>
+                        <p style="font-size:16px;">Quantity: @item.Quantity</p>
+                        <p style="font-size:16px;">Price: R @item.RepairPrice</p>
+                        @if (item.RepairStatus)
+                        {
+                            <p style="font-size:16px; background-color:#b1ede8ff">Status: Repair Processed</p>
+                        }
+                        else
+                        {
+                            <p style="font-size:16px; background-color:#bc9ec1ff;">Status: Repair In Progress</p>
+                        }
+
+                        <p style="font-size:16px;">BookedOn: @item.BookedOn</p>
+
+                    </div>
+                    Total += item.RepairPrice;
+                }
+            </div>
+        }
+    }
+
+    @if (Total > 0)
+    {
+        <div style="margin-top:0px; margin-left:900px; width: 300px;height:60px; background-color:white; ">
+            <h4 style="padding:20px" class="text-center">Subtotal: R @Total</h4>
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
+

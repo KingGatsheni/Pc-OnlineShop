@@ -30,8 +30,10 @@ namespace OnlineShop.Models
         public virtual Customer Customer { get; set; }
 
         public virtual Employee Employee { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
-      
+
         public virtual ICollection<Payment> Payments { get; set; }
 
         public virtual ICollection<SalesItem> SalesItems { get; set; }

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    
+}
+<h2 class="" style="margin-bottom:20px; margin-left: 450px; font-weight: 900;">@User.Identity.Name</h2>
+<hr style="margin-left:200px; margin-right:200px" />
+<div style="height:400px; margin-top:-30px; margin-left:60px">
+    <a href="@Url.Action("OrderHistory","AccountDetails")">
+        <div style="margin-top: 50px; padding: 10px; padding-top: 15px; margin-left:50px; height: 150px; width: 500px; background-color: white; font-size: 120px; float: left">
+            <i class="fas fa-box-open" style="float:left"></i>
+            <h2 style="font-weight:900; font-size: 70px">Orders</h2>
+        </div>
+    </a>
+    <a href="@Url.Action("AccountInfo","AccountDetails")">
+        <div style="margin-top: 50px; padding: 10px; padding-top: 15px; margin-left:50px; height: 150px; width: 500px; background-color: white; font-size: 120px; float: left">
+            <i class="far fa-user" style="float:left"></i>
+            <h2 style="font-weight:900; font-size: 70px; padding-left: 10px"> My Info</h2>
+        </div>
+    </a>
+</div>

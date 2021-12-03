@@ -95,8 +95,15 @@ namespace OnlineShop.Controllers
                 }
                 else
                 {
+
                     //no role
-                    return RedirectToAction("Index", "Home");
+                    if (Session["CartItem"] == null) {
+                        return RedirectToAction("Index", "Home");
+                    } else
+                    {
+                        return RedirectToAction("CheckOut", "Store");
+                    }
+                    
                 }
             }
             else

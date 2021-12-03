@@ -3,11 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <title>@ViewBag.Title - ComputerShop</title>
+    <title>@ViewBag.Title</title>
     <style>
         .Banner {
             background-image: url("~/Images/sale.jpg");
+        }
+        .back:hover
+        {
+            color: blue;
         }
     </style>
     @Styles.Render("~/Content/css")
@@ -15,15 +23,14 @@
 
 </head>
 <body id="newItem">
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:  ; border-bottom: none;">
-        <div class="container">
-            <div class="navbar-header">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #468189ff; border-bottom: none; color: black;">
+        <div class="container" style="background-color: #468189ff; border-bottom: none; color: black;">
+            <div class="navbar-header" style="background-color: #468189ff; border-bottom: none; color: black;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="UpperTab" style="color:black; font-weight:bold; font-family:'Segoe UI'">
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
@@ -31,7 +38,6 @@
 
                     <ul class="nav navbar-nav" style="color: black">
                         <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
-                        <li>@Html.ActionLink("Reports", "Report", "Dashboard")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 }
@@ -44,53 +50,44 @@
                 }
                 else
                 {
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Store", "Index", "Store")</li>
-                <li>@Html.ActionLink("Repair", "Index", "Repair")</li>
-            </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Store", "Index", "Store")</li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li>@Html.ActionLink("Track Repairs", "Index", "Repair")</li>
+                        }
+                    </ul>
                     @Html.Partial("_LoginPartial")
-                }
+                    if (User.Identity.IsAuthenticated)
+                    { @Html.Partial("_AccountDetail")}
+
+            }
             </div>
 
         </div>
     </div>
-    @if (!User.Identity.IsAuthenticated)
-    {
-<div class="lowerTab">
-    @Html.ActionLink("PCWIZARD.COM", "Index", "Home")
-    <input type="text" name="" class="SearchBar" placeholder="search">
-    <i class="fas fa-search fa-xs" style="font-size:small; margin-left:0px"></i>
-    @Html.Partial("_ShoppingCart")
-</div>
-    }
-    else if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
-    {
-<div class="lowerTab">
-    @Html.ActionLink("PCWIZARD.COM", "Index", "Home")
-    <input type="text" name="" class="SearchBar" placeholder="search">
-    <i class="fas fa-search fa-xs" style="font-size:small; margin-left:0px"></i>
-    @Html.Partial("_ShoppingCart")
-</div>
-    }
-
     <div class="ActualContent">
         @RenderBody()
         <hr />
 
     </div>
     <footer class="forFooter" style="background-color: #468189ff; margin-bottom: 0px; height: 50px;padding-left:15px;padding-right:15px">
-        
+
         <div class="Copyright" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; float:left;  ">
             <br /> copyright&copy;pcwizard2021
             <span style="margin-left: 50px; margin-right: 10px ">@Html.ActionLink("About", "About", "Home")</span>
             @Html.ActionLink("Contact", "Contact", "Home")
         </div>
-            <div class="AboutAndContacts" style="float:right;">
-                <i class="fab fa-facebook fa-3x" style="float: right; background-color:#468189ff;  "></i>
-                <i class="fab fa-instagram fa-3x" style="float: right; background-color: #468189ff;"></i>
-                <i class="fab fa-twitter fa-3x" style="float: right; background-color: #468189ff;margin-left: 20px"></i>
-            </div> 
+
+        <div class="AboutAndContacts" style="float:right;">
+            <i class="fab fa-facebook fa-3x" style="float: right; background-color:#468189ff;  "></i>
+            <i class="fab fa-instagram fa-3x" style="float: right; background-color: #468189ff;"></i>
+            <i class="fab fa-twitter fa-3x" style="float: right; background-color: #468189ff;margin-left: 20px"></i>
+        </div>
     </footer>
+    <div style="background-color: #468189ff; margin-bottom: 0px; height: 50px;padding-left:15px;padding-right:15px">
+        <a href="~/help.html" target="_blank">help<i class="fas fa-question" style="margin:5px"></i></a>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

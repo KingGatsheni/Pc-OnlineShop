@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OnlineShop.ViewModels.CustomerViewModel>
+@{
+    ViewBag.Title = "AccountInfo";
+}
+
+<div style="margin-left:100px; margin-top:50px">
+    <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:130px">FirstName</th>
+                <th style="width:130px">LastName</th>
+                <th style="width:130px">CellNo</th>
+                <th style="width:130px"> Address</th>
+                <th style="width:130px"> City</th>
+                <th style="width:130px"> State</th>
+                <th style="width:130px"> ZipCode</th>
+                <th style="width:130px"> EditProfile</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.FirstName</td>
+                    <td>@customer.LastName</td>
+                    <td>@customer.CellNo</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.City</td>
+                    <td>@customer.Province</td>
+                    <td>@customer.ZipCode</td>
+
+                    <td><a  style="color: blue; text-decoration: underline" href="@Url.Action("EditProfile", "Profile")" >Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

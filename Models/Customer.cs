@@ -26,6 +26,9 @@ namespace OnlineShop.Models
         public string Email { get; set; }
 
         public string Address { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string ZipCode { get; set; }
 
         [StringLength(450)]
         public string ApplicationUserId { get; set; }

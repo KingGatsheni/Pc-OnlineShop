@@ -3,14 +3,17 @@
         @if (Session["CartCounter"] == null)
         {
           <i class="fas fa-shopping-cart fa-xs" style=" color: white">  @Html.ActionLink(" 0 ", "ShoppingCart", "Store", new { id = "cartItem" })</i>
-            <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred"> 0 </i>
+          <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred"> @Html.ActionLink(" 0 ", "Wishlist", "Store", new { id = "wishtItem" }) </i>
 
         }
         else
         {
 
+                <div>
+
+                </div>
           <i class="fas fa-shopping-cart fa-xs" style=" color: white">@Html.ActionLink(" " + Session["CartCounter"] + " ", "ShoppingCart", "Store", new { id = "cartItem" }) </i>
-            <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred"> 0 </i>
+          <i class="fas fa-heart fa-xs" style="margin-right: 100px; color: darkred">  @Html.ActionLink(" " + Session["WishCounter"] + " ", "Wishlist", "Store", new { id = "wishItem" }) </i>
         }
 
     </li>

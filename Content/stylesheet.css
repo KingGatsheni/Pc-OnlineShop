@@ -32,11 +32,9 @@ a {
 .lowerTab {
     background-color: rgb(158, 211, 206);
     height: 64px;
-    font-size: 50px;
-    font-weight: 700;
+    font-size: 40px;
     padding-bottom: 14px;
     background-attachment: fixed;
-   
 }
 
 .UpdatesToUsers {
@@ -99,45 +97,45 @@ a:hover{
 
 @keyframes SaleAnimate {
     0% {
-        color: red;
+        color: #43aa8b;
     }
 
     25% {
-        color: blue;
+        color: #37505c;
     }
 
     50% {
-        color: white;
+        color: #113537;
     }
 
     75% {
-        color: yellow;
+        color: #c9d6ea;
     }
 
     100% {
-        color: red
+        color: #d4c5e2;
     }
 }
 
 @keyframes BannerText {
     0% {
-        color: red;
+        color: #43aa8b;
     }
 
     25% {
-        color: blue;
+        color: #37505c;
     }
 
     50% {
-        color: white;
+        color: #113537;
     }
 
     75% {
-        color: yellow;
+        color: #c9d6ea;
     }
 
     100% {
-        color: red
+        color: #d4c5e2;
     }
 }
 

@@ -4,10 +4,10 @@
     ViewBag.url = "~/Images/pic1.jpg";
 }
 
-<div class="UpdatesToUsers">
+<!--<div class="UpdatesToUsers">
     Welcome to PC Wizard, we sell laptops at an affordable price. Enjoy!
-</div>
-<div class="saleAnimations" style="background-color:white;background-image:url(@Url.Content("~/Images/pic1.jpg"))">
+</div>-->
+<div class="saleAnimations" style="background-color:white; margin-top:60px; margin-bottom: 55px">
     <h4 style="text-align:center; font-family:'Segoe UI'; font-weight:bold; font-size:20px"> New Stuff</h4>
     <i class="fas fa-hand-point-down"></i>
     <div class="body-content" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap:5px">
@@ -15,7 +15,7 @@
         @{
             foreach (var product in Model)
             {
-                <div class="card" s style="width: 250px; height: 300px; border: none; margin: 5px; background-color: whitesmoke; padding: 0px; border-radius: 5px; text-align: center; box-shadow: 10px 10px 5px grey; ">
+                <div class="card" s style="width: 250px; height: 300px; border: none; margin: 5px; background-color: whitesmoke; padding: 0px; border-radius: 5px; text-align: center; box-shadow: 5px 5px 3px #468189ff; ">
                     <div class="card-body">
                         <div class="pictures" style="width: 300px; margin-left: 2px; margin-top:5px; margin-bottom:5px; ">
                             @if (product.Image != null)

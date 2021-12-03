@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b69f36c6-c505-4b8c-9e4c-6ed12e30ce9d": {
+      "ProjectGuid": "b69f36c6-c505-4b8c-9e4c-6ed12e30ce9d",
+      "DisplayName": "OnlineShop",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

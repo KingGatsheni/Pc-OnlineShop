@@ -3,5 +3,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2 style="text-align:center; font-family:'Segoe UI';font-size:25px; font-weight:bold"> Dashboard</h2>
-
+<h2 style="text-align:center; font-family:'Segoe UI';font-size:25px; font-weight:bold">Manager Username: @User.Identity.Name</h2>
+<a href="@Url.Action("Report", "Dashboard")">
+    <div style="margin-top: 50px; padding: 10px; padding-top: 15px; margin-left:50px; height: 150px; width: 500px; background-color: white; font-size: 120px">
+        <i class="fas fa-chart-line" style="float:left"></i>
+        <h2 style="font-weight:900; font-size: 70px">Reports</h2>
+    </div>
+</a>

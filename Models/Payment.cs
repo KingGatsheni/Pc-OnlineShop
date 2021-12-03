@@ -11,7 +11,7 @@ namespace OnlineShop.Models
         [Key]
         public int PaymentId { get; set; }
 
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public string PaymentMethod { get; set; }
 

@@ -1,8 +1,12 @@
-﻿@model IEnumerable<OnlineShop.ViewModels.ProductViewModel>
+﻿@model IPagedList<OnlineShop.ViewModels.ProductViewModel>
 @{
     ViewBag.Title = "Store";
 }
 
+@using PagedList.Mvc;
+@using PagedList;
+
+@*function for adding to cart*@
 <script type="text/javascript">
     function AddToCart(item) {
         var itemId = $(item).attr("itemid");
@@ -16,30 +20,98 @@
             processData: false,
             data: formData,
             url: '/Store/Index',
-            success: function(data) {
+            success: function (data) {
                 if (data.Success) {
                     $("#cartItem").text(" " + data.Counter + " ");
                 }
             },
-            error: function() {
+            error: function () {
                 alert("There is some problem.");
             }
         });
     }
 </script>
-<div class="container">
-    <br />
-    <br />
-    <div class="body-content" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap:5px">
 
-        @{
-            foreach (var product in Model)
+@*function for adding to wishlist*@
+<script type="text/javascript">
+    function AddToWishList(item) {
+        var itemId = $(item).attr("itemid");
+        var formData = new FormData();
+        formData.append("ItemId", itemId);
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Store/AddToWish',
+            success: function (data) {
+                if (data.Success) {
+                    $("#wishItem").text(" " + data.Counter + " ");
+                    alert("Item Added To WishList");
+                }
+            },
+            error: function () {
+                alert("There is some problem.");
+            }
+        });
+    }
+</script>
+
+<div>
+
+    <div style="background-color:  #b1ede8ff; height: 64px; font-size: 40px; font-weight:900; padding-bottom: 14px; padding-left: 10px; background-attachment: fixed;">
+        @Html.ActionLink("PCWIZARD.COM", "Index", "Home")
+        @Html.Partial("_ShoppingCart")
+        
+    </div>
+
+
+
+
+    <div style="background-color: #468189ff; height: 60px; padding:10px;">
+        <div style="background-color: #63a3ac; width: 290px; height: 40px; margin-left: 600px;margin-bottom: -25px; z-index: 1;padding: 5px; border-radius: 5px;">
+            @using (Html.BeginForm("Index", "Store", FormMethod.Get))
             {
-                <div class="card" s style="width: 250px; height: 360px; margin-bottom: 5px; background-color: white; padding: 0px; border-radius: 5px; box-shadow: 10px 10px 5px grey; ">
+                @Html.TextBox("searching", null, new { @style = "height: 30px; font-size:16px;  background-color: #63a3ac;color: whitesmoke; border:none;" })
+                <input type="submit" style="height:30px; font-size:18px; background-color: #63a3ac;border:none;border-left:2px solid #468189ff; color: #A7BDBA;" value="Search" ; />
+            }
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="text-center">
+
+        </div>
+        <br />
+        <br />
+        <div class="body-content" id="ProductList" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap:5px">
+
+            @{
+                if (Model.Count() <= 0)
+                {
+                        <div style="width:800px; height:300px; background-color:white;border-radius:2px; margin-inline:auto; margin-left:200px">
+                            <i style="margin-left:300px;margin-top:60px" class="fa fa-search fa-10x"></i>
+                            <p class="text-center" style="margin-top:60px; padding-top:2px; font-size:18px;margin-right:50px">Product Not Found</p>
+                        </div>
+                }
+                else
+                {
+                    foreach (var product in Model)
+                    {
+                        <div class="card" s style="width: 250px; height: 360px; margin-bottom: 5px; background-color: white; padding: 0px; border-radius: 5px; box-shadow: 5px 5px 3px whitesmoke; ">
                             <div class="card-body">
                                 <div class="pictures" style="width: 300px; margin-left: 20px; margin-top:3px; margin-bottom:5px; ">
                                     @if (product.Image != null)
-                                    {<img src="@Url.Content("~/Images/" + product.Image)" alt="@product.Image" width="210px" height="200px"  />}
+                                    {<img src="@Url.Content("~/Images/" + product.Image)" alt="@product.Image" width="210px" height="200px" />}
                                     else
                                     { <img src="@Url.Content("~/Images/null.png")" alt="No Product" width="210px" height="150px" />}
                                 </div>
@@ -48,14 +120,30 @@
                                 </div>
                                 <div class="Price" style="border-top:2px solid #468189ff;height: 50px; width: 250px;padding-left:5px"><h5>@product.ProductPrice.ToString("R#,##0.00")</h5></div>
                                 <div class="ButtonPosition" style="height: 50px; width: 250px; padding-left:5px; border-top: 2px solid #468189ff; padding-top: 10px; padding-right:10px">
-                                    <input type="button" name="AddToCart" value="Add To Cart" class="btn btn-primary" itemid="@product.ProductId" id="btnAddToCart" style="float: left; background-color: #468189ff" onclick="AddToCart(this)" />
-                                    <input type="button" name="AddToWishList" value="Add To WishList" class="btn btn-primary" itemid="@product.ProductId" style="float: right; background-color:#468189ff" id="btnAddToCart" onclick="AddToCart(this)" />
+                                    @if (product.Qty > 0)
+                                    {
+                                        <input type="button" name="AddToCart" value="Add To Cart" class="btn btn-primary" itemid="@product.ProductId" id="btnAddToCart" style="float: left; background-color: #468189ff" onclick="AddToCart(this)"/>
+                                        <input type="button" name="AddToWishList" value="Add To WishList" class="btn btn-primary" itemid="@product.ProductId" style="float: right; background-color:#468189ff" id="btnAddToWishList" onclick=" AddToWishList(this)"/>
+                                    }
+                                    else
+                                    {
+                                        <input type="button" name="AddToCart" value="Add To Cart" class="btn btn-primary" itemid="@product.ProductId" id="btnAddToCart" style="float: left; background-color: #468189ff" onclick="AddToCart(this)" disabled />
+                                        <input type="button" name="AddToWishList" value="Add To WishList" class="btn btn-primary" itemid="@product.ProductId" style="float: right; background-color:#468189ff" id="btnAddToWishList" onclick=" AddToWishList(this)" disabled />
+                                    }
+
                                 </div>
                             </div>
-                </div>
-            }
-        }
+                        </div>
+                    }
+                }
 
+
+}
+
+        </div>     
+        @Html.PagedListPager(Model, page => Url.Action("Index","Store", new { page, pageSize = Model.PageSize }))
+            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Products     
     </div>
+
 </div>
 

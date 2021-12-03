@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OnlineShop.ViewModels.WishListViewModel>
+
+@{
+    ViewBag.Title = "Wishlist";
+}
+@*function for adding to cart*@
+<script type="text/javascript">
+    function AddToCart(item) {
+        var itemId = $(item).attr("itemid");
+        var formData = new FormData();
+        formData.append("ItemId", itemId);
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Store/Wishlist',
+            success: function (data) {
+                if (data.Success) {
+                    $("#cartItem").text(" " + data.Counter + " ");
+                    alert("Item Added To Cart");
+                    window.location.href = "@Url.Action("WishList","Store")";
+                }
+            },
+            error: function () {
+                alert("There is some problem.");
+            }
+        });
+    }
+</script>
+<h2 class="" style="margin-bottom:20px; margin-left: 600px; font-weight: 900;"><i class="fas fa-heart"></i></h2>
+<hr style="margin-left:200px; margin-right:200px" />
+
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap:5px; margin-left: 100px">
+    @{
+        if (Model == null || Model.Count() <= 0)
+        {
+        <div style="font-size: 250px; margin-left:389px;margin-top: -20px; color: #E1EAE9">
+            <i class="far fa-dizzy"></i>
+            <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top:-50px; margin-left: 15px; width: 300px">
+                WishList Empty
+            </h2>
+        </div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="card" style="width: 250px; height: 360px; margin-bottom: 5px; background-color: white; padding: 0px; border-radius: 5px; box-shadow: 5px 5px 3px whitesmoke;float: left; ">
+                    <div class="card-body">
+                        <div class="pictures" style="width: 300px; margin-left: 20px; margin-top:3px; margin-bottom:5px; ">
+
+                            <img src="@Url.Content("~/Images/" + @item.ItemImage)" alt="" width="210px" height="200px" />
+                        </div>
+                        <div class="ProductName_" style="height: 50px; width: 250px; padding-left:5px; border-top: 2px solid #468189ff; padding-top: 0px">
+                            <h5>@item.ItemName</h5>
+                        </div>
+                        <div class="Price" style="border-top:2px solid #468189ff;height: 50px; width: 250px;padding-left:5px"><h5>R @item.ItemPrice</h5></div>
+                        <div class="ButtonPosition" style="height: 50px; width: 250px; padding-left:5px; border-top: 2px solid #468189ff; padding-top: 10px; padding-right:10px">
+                            <input type="button" name="AddToCart" value="Add To Cart" class="btn btn-primary" itemid="@item.ItemId" id="btnAddToCart" style="background-color: #468189ff; margin-left: 10px" onclick="AddToCart(this)" />
+                            <a href="@Url.Action("RemoveFromWishList", "Store", new { itemID = item.ItemId })">
+                                <input type="button" name="Remove" value="Remove" class="btn btn-primary" style="float: right; background-color:#468189ff" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+

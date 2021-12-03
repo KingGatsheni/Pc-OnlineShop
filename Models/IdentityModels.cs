@@ -41,6 +41,7 @@ namespace OnlineShop.Models
         public virtual DbSet<Repair> Repairs { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SalesItem> SalesItems { get; set; }
+        public virtual DbSet<WishItem> WishLists { get; set; }
 
     }
 }

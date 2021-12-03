@@ -1,7 +1,90 @@
-﻿
+﻿@*@model IEnumerable<OnlineShop.ViewModels.CartViewModel>*@
+@model OnlineShop.Models.CardValidation
 @{
     ViewBag.Title = "Checkout";
+
+
 }
 
-<h2 style="text-align:center; font-family:'Segoe UI';font-size:25px; font-weight:bold">Checkout</h2>
+@if (ViewData.ModelState.IsValid)
+{
+    if (@ViewBag.CardNumber != null)
+    {
+        <b>
+            CardNumber : @ViewBag.CardNumber<br />
+            Expiry : @ViewBag.Expiry
+            Cvv : @ViewBag.Cvv
+        </b>
+    }
+}
+<div>
+    <a href="@Url.Action("ShoppingCart","Store")">
+        <button type="submit" name="Back To Cart" style="width: 150px; margin-left: 1200px; border: none; background-color: whitesmoke;" />Back To Cart<i style="padding:10px" class="fa fa-arrow-right"></i>
+    </a>
+</div>
+<div class="UpdatesToUsers">
+    Please note that PCWizard does not have a delivery system. you can
+    <a href="https://localhost:44364/Home/Contact" target="_blank" style="color: blue;">Contact</a> us for more info.
+</div>
+<div style="background-color: ghostwhite; margin-left: 50px; margin-top: 20px; margin-right: 50px; height: 40px; padding-top: 10px">
+    <p style="text-align: center; font-weight:900; color: #354543">Collect here: <a href="https://www.google.com/maps/place/34+Diakonia+Ave,+Durban+Central,+Durban,+4001/-29.8624026,31.0146344,17z/data=!3m1!4b1!4m5!3m4!1s0x1ef7a9b8b723f797:0x7f4cddae6eaa73e2!8m2!3d-29.8624026!4d31.0168231" target="_blank">34 Diakonia Avaenue, Durban 4000</a></p>
+</div>
 
+
+
+@using (Html.BeginForm("ProcessOrder", "Store", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div style="background-color: ghostwhite; margin-left: 50px; margin-top: 20px; margin-right: 50px; height: 250px;padding-left: 400px; padding-top: 10px">
+        <div style="margin-left:200px"> 
+            <h1 style="font-weight:900; padding-right: 50px "> Cart Summary</h1>
+            <br />
+            <h3>Number of Items: @Session["CartCounter"]</h3>
+            <h3>Cart Total: R @Session["CartTotal"]</h3>
+        </div>
+    </div>
+
+    <div style="background-color: ghostwhite; margin-left: 50px; margin-top: 20px; margin-right: 50px; height: 500px;padding-left: 300px; padding-top: 10px">
+        <h1 style="font-weight: 900;margin-left:200px">Pay with  Debit/Credit Card</h1>
+        <br />
+        <br />
+        
+        @using (Html.BeginForm()) {
+          @Html.ValidationSummary(true)
+    <fieldset>
+        <div style="background-color:whitesmoke; margin-left:250px; height:280px; width:400px;padding:20px">
+            <p style="background-color:aqua;font-size:16px;font-family:'Segoe UI';font-weight:bold">Visa/MasterCard</p>
+            @Html.ValidationMessageFor(model => model.CardNumber, null, new { @style = " background-color: red" })
+            <div class="editor-field" style="border-bottom:2px solid #7F908E;width: 270px; font-size:x-large;margin-bottom:10px">
+                <i class="far fa-credit-card" style="font-size: larger"></i>
+                @Html.TextBoxFor(model => model.CardNumber)
+
+            </div>
+            @Html.ValidationMessageFor(model => model.Expiry, null, new { @style = " background-color: red" })
+            <div class="editor-label" style="border-bottom: 2px solid #7F908E; width: 105px; font-size: x-large; margin-bottom: 10px">
+                @Html.TextBoxFor(model => model.Expiry)
+
+            </div>
+            @Html.ValidationMessageFor(model => model.Cvv, null, new { @style = " background-color: red" })
+            <div class="editor-field" style="border-bottom: 2px solid #7F908E; width: 60px; font-size: x-large; margin-bottom: 10px">
+                @Html.TextBoxFor(model => model.Cvv)
+            </div>
+        </div>
+        <br />
+        <button type="submit" name="Pay" style="width: 300px; height: 50px; margin-left: 300px; margin-top: 5px; font-weight:900; font-size:x-large; background-color: #468189ff; border-radius: 5px; border: none; color: whitesmoke">PAY</button>
+    </fieldset>
+        }
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+            window.onload = function () {
+            alert("@ViewBag.Message");
+        };
+            </script>
+        }
+    </div>
+   
+
+            }
+ @section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+   }
